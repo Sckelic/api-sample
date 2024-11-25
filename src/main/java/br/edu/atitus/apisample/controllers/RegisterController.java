@@ -21,11 +21,11 @@ import br.edu.atitus.apisample.entities.RegisterEntity;
 import br.edu.atitus.apisample.entities.UserEntity;
 import br.edu.atitus.apisample.services.RegisterService;
 import br.edu.atitus.apisample.services.UserService;
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
 @RestController
 @RequestMapping("/registers")
 public class RegisterController {
+	
 	private final RegisterService service;
 	private final UserService userService;
 
@@ -50,6 +50,7 @@ public class RegisterController {
 		var registers = service.findAll();
 		return ResponseEntity.ok(registers);
 	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<RegisterEntity> getOneRegister(@PathVariable UUID id) throws Exception{
 		var register = service.findById(id);
@@ -62,13 +63,12 @@ public class RegisterController {
 		BeanUtils.copyProperties(dto, register);
 		service.save(register);
 		return ResponseEntity.ok(register);
-		
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteRegister(@PathVariable UUID id) throws Exception{
 		service.deleteById(id);
-		return ResponseEntity.ok("Registro Apagado com Sucesso");
+		return ResponseEntity.ok("Registro deletado com sucesso.");
 	}
 	
 	@ExceptionHandler(Exception.class)

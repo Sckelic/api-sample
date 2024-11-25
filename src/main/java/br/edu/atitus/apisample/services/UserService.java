@@ -18,27 +18,31 @@ public class UserService {
 		this.repository = repository;
 	}
 
-
 	public UserEntity save(UserEntity newUser) throws Exception {
+		
 		if(newUser == null)
-			throw new Exception("Objeto null");
+			throw new Exception("Objeto nulo.");
+		
 		if(newUser.getName() == null || newUser.getName().isEmpty()) 
-			throw new Exception ("Nome Invalido");
+			throw new Exception ("Nome inválido.");
+		
 		newUser.setName(newUser.getName().trim());
 		if(newUser.getEmail() == null || newUser.getEmail().isEmpty())
-			throw new Exception ("Email Invalido");
+			throw new Exception ("Email inválido.");
+		
 		String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher Matcher = pattern.matcher(newUser.getEmail());
 		if (!Matcher.matches()) 
-			throw new Exception("Email Inalido");
-		this.repository.save(newUser);
-
+			throw new Exception("Email inválido.");
+		
 		newUser.setEmail(newUser.getEmail().trim());
 		
 		if(repository.existsByEmail(newUser.getEmail()))
-			throw new Exception("Ja existe usuario com este email.");
-		//TODO invocar metodo camada repository
+			throw new Exception("Já existe usuário com este email.");
+		
+		this.repository.save(newUser);
+
 		return newUser;
 	}
 	

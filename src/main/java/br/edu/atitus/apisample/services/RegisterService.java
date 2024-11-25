@@ -16,14 +16,15 @@ public class RegisterService {
 		super();
 		this.repository = repository;
 	}
-	//TODO metodo save
+	
 	public RegisterEntity save(RegisterEntity newRegister) throws Exception{
+		
 		if(newRegister.getUser() == null || newRegister.getUser().getId() == null) 
-			throw new Exception("Usuario nao informado");
+			throw new Exception("Usuário não informado.");
 		if(newRegister.getLatitude() < -90 || newRegister.getLatitude() > 90) 
-			throw new Exception("Latitude invalida");
+			throw new Exception("Latitude inválida.");
 		if(newRegister.getLongitude() < -180 || newRegister.getLongitude() > 180)
-			throw new Exception("Longitude invalida");
+			throw new Exception("Longitude inválida.");
 		
 		repository.save(newRegister);
 		
@@ -35,11 +36,13 @@ public class RegisterService {
 		List<RegisterEntity> registers = repository.findAll();
 		return registers;
 	}
+	
 	//metodo findById
 	public RegisterEntity findById(UUID id) throws Exception{
-		RegisterEntity register = repository.findById(id).orElseThrow(() -> new Exception("Registro nao encontrado com este ID"));
+		RegisterEntity register = repository.findById(id).orElseThrow(() -> new Exception("Registro não encontrado com este ID."));
 		return register;
 	}
+	
 	//metodo deleteById
 	public void  deleteById(UUID id) throws Exception {
 		this.findById(id);

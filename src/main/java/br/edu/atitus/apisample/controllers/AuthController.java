@@ -1,6 +1,7 @@
 package br.edu.atitus.apisample.controllers;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import br.edu.atitus.apisample.services.UserService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+	
 	private final UserService service;
 		
 	public AuthController(UserService service) {
@@ -24,15 +26,15 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<UserEntity> createNewUser(@RequestBody SignUpDTO signup) throws Exception{
+	public ResponseEntity<UserEntity> createUser(@RequestBody SignUpDTO signup) throws Exception{
 
 		UserEntity newUser = new UserEntity();
 		BeanUtils.copyProperties(signup, newUser);
 		newUser.setType(TypeUser.Common);
 		service.save(newUser);
-		//TODO retornar entidade user
-		return ResponseEntity.ok(newUser);
+		return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
 	}
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> handlerMethod(Exception ex){
 		String msg = ex.getMessage().replaceAll("\r\n", "");

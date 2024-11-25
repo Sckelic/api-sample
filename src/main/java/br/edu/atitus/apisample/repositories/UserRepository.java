@@ -9,5 +9,7 @@ import br.edu.atitus.apisample.entities.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, UUID>{
+	
 	boolean existsByEmail(String email);
+	
 }

@@ -22,6 +22,7 @@ public class UserEntity {
 	@JsonIgnore
 	private String password;
 	private TypeUser type;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -51,7 +52,5 @@ public class UserEntity {
 	}
 	public void setType(TypeUser type) {
 		this.type = type;
-	}
-	
-	
+	}	
 }

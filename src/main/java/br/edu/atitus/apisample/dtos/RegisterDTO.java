@@ -5,6 +5,7 @@ public class RegisterDTO {
 	private double latitude;
 	private double longitude;
 	private String description;
+	
 	public double getLatitude() {
 		return latitude;
 	}
@@ -23,6 +24,5 @@ public class RegisterDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 	
 }
